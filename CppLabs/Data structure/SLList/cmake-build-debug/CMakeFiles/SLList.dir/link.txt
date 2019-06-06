@@ -1,0 +1,3 @@
+"D:\Program Files\JetBrains\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\SLList.dir/objects.a
+C:\PROGRA~1\MINGW-~1\mingw64\bin\ar.exe cr CMakeFiles\SLList.dir/objects.a @CMakeFiles\SLList.dir\objects1.rsp
+C:\PROGRA~1\MINGW-~1\mingw64\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\SLList.dir/objects.a -Wl,--no-whole-archive  -o SLList.exe -Wl,--out-implib,libSLList.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SLList.dir\linklibs.rsp
