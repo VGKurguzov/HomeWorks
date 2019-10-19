@@ -1,42 +1,33 @@
 package com.kurguzov;
 
-import com.kurguzov.xml_reader.StaxReader;
+import com.kurguzov.Entities.CitiesEntity;
+import com.kurguzov.Entities.SubscribersEntity;
+import com.kurguzov.Service.CitiesService;
+import com.kurguzov.Service.SubscribersService;
+import com.kurguzov.Utils.XMLParser;
 
-import java.io.File;
-import java.sql.*;
-
-public class Main {
+public class Main extends XMLParser {
 
     public static void main(String[] args) {
+        CitiesEntity novosibirskCity = new CitiesEntity(5,"Новосибирск");
+        CitiesService citiesService = new CitiesService();
+        System.out.println("Вывод всех городов");
+        System.out.println(citiesService.getAll());
+        System.out.println("Город с id = 2");
+        System.out.println(citiesService.getById(2).getCity_name());
+        citiesService.add(novosibirskCity);
 
-//        Connection connection = null;
-//        String url = "jdbc:h2:~/test";
-//        String name = "sa";
-//        String password = "";
-//
-//
-//        try{
-//            Class.forName("org.h2.Driver");
-//            connection = DriverManager.getConnection(url,name,password);
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery("SELECT * FROM SUBSCRIBERS");
-//
-//            while(resultSet.next()){
-//                System.out.println("#" + resultSet.getInt("sub_id")
-//                +"\t" + resultSet.getString("sub_fio") + "\t" + resultSet.getString("sub_city")+
-//                        "\t" + resultSet.getString("sub_tariff") + "\t" + resultSet.getInt("sub_price"));
-//            }
-//
-//        } catch (SQLException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }finally {
-//            try {
-//                connection.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-        StaxReader staxReader = new StaxReader();
+        SubscribersEntity human = new SubscribersEntity(21,"Столов Алексей Игоревич",5,"Малый",100);
+        SubscribersService subscribersService = new SubscribersService();
+        subscribersService.add(human);
+        System.out.println("Вывод всех абонентов");
+        System.out.println(subscribersService.getAll());
+
+        SubscribersEntity human2 = new SubscribersEntity(20,"Вилкин Пётр Петрович",5,"Огромный",1000);
+        subscribersService.update(human2);
+
+        subscribersService.delete(21);
 
     }
+
 }

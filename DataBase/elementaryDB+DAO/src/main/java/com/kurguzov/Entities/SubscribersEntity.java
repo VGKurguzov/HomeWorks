@@ -1,18 +1,18 @@
-package com.kurguzov.DAO;
+package com.kurguzov.Entities;
 
 import java.util.Objects;
 
-public class Subscribers {
+public class SubscribersEntity {
     private int sub_id;
     private String sub_fio;
     private int sub_city_id;
     private String sub_tariff;
     private int sub_price;
 
-    public Subscribers() {
+    public SubscribersEntity() {
     }
 
-    public Subscribers(int sub_id, String sub_fio, int sub_city_id, String sub_tariff, int sub_price) {
+    public SubscribersEntity(int sub_id, String sub_fio, int sub_city_id, String sub_tariff, int sub_price) {
         this.sub_id = sub_id;
         this.sub_fio = sub_fio;
         this.sub_city_id = sub_city_id;
@@ -64,7 +64,7 @@ public class Subscribers {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Subscribers that = (Subscribers) o;
+        SubscribersEntity that = (SubscribersEntity) o;
         return sub_id == that.sub_id;
     }
 

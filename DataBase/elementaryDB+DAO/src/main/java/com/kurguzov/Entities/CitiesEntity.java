@@ -1,15 +1,15 @@
-package com.kurguzov.DAO;
+package com.kurguzov.Entities;
 
 import java.util.Objects;
 
-public class Cities {
+public class CitiesEntity {
     private int city_id;
     private String city_name;
 
-    public Cities() {
+    public CitiesEntity() {
     }
 
-    public Cities(int city_id, String city_name) {
+    public CitiesEntity(int city_id, String city_name) {
         this.city_id = city_id;
         this.city_name = city_name;
     }
@@ -34,8 +34,8 @@ public class Cities {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cities cities = (Cities) o;
-        return city_id == cities.city_id;
+        CitiesEntity citiesEntity = (CitiesEntity) o;
+        return city_id == citiesEntity.city_id;
     }
 
     @Override
