@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class XMLParser {
     private static Map<String,String> pairXMLMap = new HashMap<>();
-    private final static File xmlFile = new File("src/main/resources/databaseH2Config.xml");
+    private final static File xmlFile = new File("src/main/resources/databaseConfig.xml");
     static {
         try {
 
