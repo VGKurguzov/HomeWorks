@@ -18,7 +18,6 @@ public class XMLParser {
     private final static File xmlFile = new File("src/main/resources/databaseConfig.xml");
     static {
         try {
-
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = documentBuilder.parse(xmlFile);
@@ -41,11 +40,9 @@ public class XMLParser {
         }
     }
 
-
     protected static Map<String,String> getPairXMLMap(){
         return pairXMLMap;
     }
-
 }
 
 

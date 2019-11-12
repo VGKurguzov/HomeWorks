@@ -42,4 +42,11 @@ public class CitiesEntity {
     public int hashCode() {
         return Objects.hash(city_id);
     }
+
+    @Override
+    public String toString() {
+        return city_name +
+                "(ID = " + city_id +
+                ") ";
+    }
 }

@@ -18,5 +18,4 @@ public class Util extends XMLParser {
         }
         return connection;
     }
-
 }

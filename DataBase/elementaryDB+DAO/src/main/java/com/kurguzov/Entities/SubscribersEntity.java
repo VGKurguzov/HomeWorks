@@ -72,4 +72,13 @@ public class SubscribersEntity {
     public int hashCode() {
         return Objects.hash(sub_id);
     }
+
+    @Override
+    public String toString() {
+        return sub_fio+ ": " +
+                "ID = " + sub_id +
+                ", ID города = " + sub_city_id +
+                ", Тариф = " + sub_tariff +
+                ", Цена тарифа = " + sub_price;
+    }
 }

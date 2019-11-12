@@ -1,32 +1,24 @@
-package com.kurguzov.Service;
+package com.kurguzov.Services;
 
-import com.kurguzov.DAO.SubscribersDAO;
-import com.kurguzov.Entities.SubscribersEntity;
+import com.kurguzov.DAO.CitiesDAO;
+import com.kurguzov.Entities.CitiesEntity;
 import com.kurguzov.Utils.Util;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubscribersService extends Util implements SubscribersDAO {
+public class CitiesService extends Util implements CitiesDAO {
 
     @Override
-    public void add(SubscribersEntity sub) {
+    public void add(CitiesEntity city) {
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO SUBSCRIBERS(SUB_ID,SUB_FIO,SUB_CITY_ID,SUB_TARIFF,SUB_PRICE) VALUES (?,?,?,?,?)";
-
+        String sql = "INSERT INTO Cities(city_id,city_name) VALUES (?,?)";
         try(Connection connection = Util.getConnection()){
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,sub.getSub_id());
-            preparedStatement.setString(2,sub.getSub_fio());
-            preparedStatement.setInt(3,sub.getSub_city_id());
-            preparedStatement.setString(4,sub.getSub_tariff());
-            preparedStatement.setInt(5,sub.getSub_price());
+            preparedStatement.setInt(1,city.getCity_id());
+            preparedStatement.setString(2,city.getCity_name());
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -41,58 +33,50 @@ public class SubscribersService extends Util implements SubscribersDAO {
     }
 
     @Override
-    public SubscribersEntity getById(int id) {
+    public CitiesEntity getById(int id) {
         PreparedStatement preparedStatement = null;
-        String sql = "SELECT * FROM SUBSCRIBERS WHERE ID = ?";
-        SubscribersEntity subscribersEntity = new SubscribersEntity();
-
+        String sql = "SELECT * FROM CITIES WHERE CITY_ID = ?";
+        CitiesEntity citiesEntity = new CitiesEntity();
         try(Connection connection = Util.getConnection()){
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            subscribersEntity.setSub_id(resultSet.getInt("sub_id"));
-            subscribersEntity.setSub_fio(resultSet.getString("sub_fio"));
-            subscribersEntity.setSub_city_id(resultSet.getInt("sub_city_id"));
-            subscribersEntity.setSub_tariff(resultSet.getString("sub_tariff"));
-            subscribersEntity.setSub_price(resultSet.getInt("sub_price"));
-
+            while (resultSet.next()){
+                if (resultSet.getInt("city_id") == id){
+                    citiesEntity.setCity_id(resultSet.getInt("city_id"));
+                    citiesEntity.setCity_name(resultSet.getString("city_name"));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             if(preparedStatement != null){
                 try {
                     preparedStatement.close();
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         }
-        return subscribersEntity;
+        return citiesEntity;
     }
 
     @Override
-    public void update(SubscribersEntity sub) {
+    public void update(CitiesEntity city) {
         PreparedStatement preparedStatement = null;
-        String sql = "UPDATE SUBSCRIBERS SET sub_fio=?,sub_city_id=?,sub_tariff=?,sub_price=? WHERE sub_id=?";
+        String sql = "UPDATE CITIES SET city_name=? WHERE city_id=?";
 
         try(Connection connection = Util.getConnection()){
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(5,sub.getSub_id());
-            preparedStatement.setString(1,sub.getSub_fio());
-            preparedStatement.setInt(2,sub.getSub_city_id());
-            preparedStatement.setString(3,sub.getSub_tariff());
-            preparedStatement.setInt(4,sub.getSub_price());
+            preparedStatement.setString(1,city.getCity_name());
+            preparedStatement.setInt(2,city.getCity_id());
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             if(preparedStatement != null){
                 try {
                     preparedStatement.close();
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -103,20 +87,17 @@ public class SubscribersService extends Util implements SubscribersDAO {
     @Override
     public void delete(int id) {
         PreparedStatement preparedStatement = null;
-        String sql = "DELETE FROM SUBSCRIBERS WHERE sub_id=?";
-
+        String sql = "DELETE FROM CITIES WHERE city_id=?";
         try(Connection connection = Util.getConnection()){
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             if(preparedStatement != null){
                 try {
                     preparedStatement.close();
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -125,22 +106,18 @@ public class SubscribersService extends Util implements SubscribersDAO {
     }
 
     @Override
-    public List<SubscribersEntity> getAll() {
+    public List<CitiesEntity> getAll() {
         PreparedStatement preparedStatement = null;
-        String sql = "SELECT * FROM SUBSCRIBERS";
-        List<SubscribersEntity> subscribersEntityList = new ArrayList<>();
-
+        String sql = "SELECT * FROM CITIES";
+        List<CitiesEntity> citiesEntityList = new ArrayList<>();
         try(Connection connection = Util.getConnection()){
             preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                SubscribersEntity sub = new SubscribersEntity();
-                sub.setSub_id(resultSet.getInt("sub_id"));
-                sub.setSub_fio(resultSet.getString("sub_fio"));
-                sub.setSub_city_id(resultSet.getInt("sub_city_id"));
-                sub.setSub_tariff(resultSet.getString("sub_tariff"));
-                sub.setSub_price(resultSet.getInt("sub_price"));
-                subscribersEntityList.add(sub);
+                CitiesEntity citiesEntity = new CitiesEntity();
+                citiesEntity.setCity_id(resultSet.getInt("city_id"));
+                citiesEntity.setCity_name(resultSet.getString("city_name"));
+                citiesEntityList.add(citiesEntity);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -153,7 +130,6 @@ public class SubscribersService extends Util implements SubscribersDAO {
                 }
             }
         }
-        return subscribersEntityList;
+        return citiesEntityList;
     }
-
 }
