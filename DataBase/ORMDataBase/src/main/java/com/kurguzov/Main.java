@@ -16,7 +16,7 @@ public class Main {
         List<SubscribersEntity> cities = query.getResultList();
         System.out.println("Места жительства абонентов:");
         for (SubscribersEntity city : cities) {
-            System.out.println(city.getSubFio()+" живёт в городе" + city.getSubCityId().getCityName());
+            System.out.println(city.getSubFio()+" живёт в городе " + city.getSubCityId().getCityName());
         }
 
         System.out.println("Общие данные о абонентах:");
@@ -27,11 +27,8 @@ public class Main {
 
         System.out.println("\t Информация об оплате каждого абонента:");
         for (SubscribersEntity city : cities) {
-            System.out.println(city.getSubFio()+ " платит по " + city.getSubPrice() + " рублей");
+            System.out.println(city.getSubFio()+ " платит по " + city.getSubPrice() + " рублей в месяц");
         }
-
         session.close();
-
-
     }
 }

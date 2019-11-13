@@ -14,9 +14,7 @@ public class HibernateSessionFactory {
         try {
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .configure("hibernate.cfg.xml").build();
-
             Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
-
             return metadata.getSessionFactoryBuilder().build();
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
@@ -31,5 +29,4 @@ public class HibernateSessionFactory {
     public static void shutdown() {
         getSessionFactory().close();
     }
-
 }
