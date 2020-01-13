@@ -16,8 +16,6 @@ import java.util.List;
 
 public class SubscribersService implements SubscribersDAO {
 
-
-
     @Override
     public void add(SubscribersEntity sub) throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
         PreparedStatement preparedStatement = null;
@@ -30,6 +28,7 @@ public class SubscribersService implements SubscribersDAO {
         preparedStatement.setString(4,sub.getSub_tariff());
         preparedStatement.setInt(5,sub.getSub_price());
         preparedStatement.executeUpdate();
+        connection.close();
     }
 
     @Override
@@ -50,6 +49,7 @@ public class SubscribersService implements SubscribersDAO {
                 subscribersEntity.setSub_price(resultSet.getInt("sub_price"));
             }
         }
+        connection.close();
         return subscribersEntity;
     }
 
@@ -65,6 +65,7 @@ public class SubscribersService implements SubscribersDAO {
         preparedStatement.setString(3,sub.getSub_tariff());
         preparedStatement.setInt(4,sub.getSub_price());
         preparedStatement.executeUpdate();
+        connection.close();
     }
 
     @Override
@@ -72,9 +73,10 @@ public class SubscribersService implements SubscribersDAO {
         PreparedStatement preparedStatement = null;
         String sql = "DELETE FROM SUBSCRIBERS_PRIMITIVE WHERE sub_id=?";
         Connection connection = Util.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,id);
-            preparedStatement.executeUpdate();
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        preparedStatement.executeUpdate();
+        connection.close();
     }
 
     @Override
@@ -94,6 +96,7 @@ public class SubscribersService implements SubscribersDAO {
             sub.setSub_price(resultSet.getInt("sub_price"));
             subscribersEntityList.add(sub);
         }
+        connection.close();
         return subscribersEntityList;
     }
 }
