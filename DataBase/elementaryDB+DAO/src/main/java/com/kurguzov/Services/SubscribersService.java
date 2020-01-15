@@ -3,7 +3,10 @@ package com.kurguzov.Services;
 import com.kurguzov.DAO.SubscribersDAO;
 import com.kurguzov.Entities.SubscribersEntity;
 import com.kurguzov.Utils.Util;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,10 +14,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubscribersService extends Util implements SubscribersDAO {
+public class SubscribersService implements SubscribersDAO {
 
     @Override
-    public void add(SubscribersEntity sub) throws SQLException,ClassNotFoundException {
+    public void add(SubscribersEntity sub) throws SQLException,ClassNotFoundException, SAXException, IOException, ParserConfigurationException {
         PreparedStatement preparedStatement = null;
         String sql = "INSERT INTO SUBSCRIBERS(SUB_ID,SUB_FIO,SUB_CITY_ID,SUB_TARIFF,SUB_PRICE) VALUES (?,?,?,?,?)";
         Connection connection = Util.getConnection();
@@ -25,10 +28,11 @@ public class SubscribersService extends Util implements SubscribersDAO {
         preparedStatement.setString(4,sub.getSub_tariff());
         preparedStatement.setInt(5,sub.getSub_price());
         preparedStatement.executeUpdate();
+        connection.close();
     }
 
     @Override
-    public SubscribersEntity getById(int id) throws SQLException,ClassNotFoundException {
+    public SubscribersEntity getById(int id) throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
         PreparedStatement preparedStatement = null;
         String sql = "SELECT * FROM SUBSCRIBERS WHERE SUB_ID = ?";
         SubscribersEntity subscribersEntity = new SubscribersEntity();
@@ -45,11 +49,12 @@ public class SubscribersService extends Util implements SubscribersDAO {
                 subscribersEntity.setSub_price(resultSet.getInt("sub_price"));
             }
         }
+        connection.close();
         return subscribersEntity;
     }
 
     @Override
-    public void update(SubscribersEntity sub) throws SQLException,ClassNotFoundException {
+    public void update(SubscribersEntity sub) throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
         PreparedStatement preparedStatement = null;
         String sql = "UPDATE SUBSCRIBERS SET sub_fio=?,sub_city_id=?,sub_tariff=?,sub_price=? WHERE sub_id=?";
         Connection connection = Util.getConnection();
@@ -60,20 +65,22 @@ public class SubscribersService extends Util implements SubscribersDAO {
         preparedStatement.setString(3,sub.getSub_tariff());
         preparedStatement.setInt(4,sub.getSub_price());
         preparedStatement.executeUpdate();
+        connection.close();
     }
 
     @Override
-    public void delete(int id) throws SQLException,ClassNotFoundException {
+    public void delete(int id) throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
         PreparedStatement preparedStatement = null;
         String sql = "DELETE FROM SUBSCRIBERS WHERE sub_id=?";
         Connection connection = Util.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
+            connection.close();
     }
 
     @Override
-    public List<SubscribersEntity> getAll() throws SQLException,ClassNotFoundException {
+    public List<SubscribersEntity> getAll() throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
         PreparedStatement preparedStatement = null;
         String sql = "SELECT * FROM SUBSCRIBERS";
         List<SubscribersEntity> subscribersEntityList = new ArrayList<>();
@@ -89,6 +96,7 @@ public class SubscribersService extends Util implements SubscribersDAO {
             sub.setSub_price(resultSet.getInt("sub_price"));
             subscribersEntityList.add(sub);
         }
+        connection.close();
         return subscribersEntityList;
     }
 }

@@ -4,7 +4,9 @@ import com.kurguzov.Entities.CitiesEntity;
 import com.kurguzov.Entities.SubscribersEntity;
 import com.kurguzov.Services.CitiesService;
 import com.kurguzov.Services.SubscribersService;
-
+import org.xml.sax.SAXException;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Main {
@@ -26,7 +28,8 @@ public class Main {
             subscribersService.update(human2);
             System.out.println("Абонент с ID = 14: " + subscribersService.getById(14));
             subscribersService.delete(22);
-        }catch (ClassNotFoundException|SQLException e){
+            citiesService.delete(8);
+        }catch (ClassNotFoundException|SQLException| SAXException| IOException| ParserConfigurationException e){
             e.printStackTrace();
         }
     }
