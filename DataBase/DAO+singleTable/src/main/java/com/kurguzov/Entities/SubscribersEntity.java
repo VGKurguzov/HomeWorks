@@ -3,61 +3,61 @@ package com.kurguzov.Entities;
 import java.util.Objects;
 
 public class SubscribersEntity {
-    private int sub_id;
-    private String sub_fio;
-    private int sub_city_id;
-    private String sub_tariff;
-    private int sub_price;
+    private int subId;
+    private String subFio;
+    private int subCityId;
+    private String subTariff;
+    private int subPrice;
 
     public SubscribersEntity() {
     }
 
-    public SubscribersEntity(int sub_id, String sub_fio, int sub_city_id, String sub_tariff, int sub_price) {
-        this.sub_id = sub_id;
-        this.sub_fio = sub_fio;
-        this.sub_city_id = sub_city_id;
-        this.sub_tariff = sub_tariff;
-        this.sub_price = sub_price;
+    public SubscribersEntity(int subId, String subFio, int subCityId, String subTariff, int subPrice) {
+        this.subId = subId;
+        this.subFio = subFio;
+        this.subCityId = subCityId;
+        this.subTariff = subTariff;
+        this.subPrice = subPrice;
     }
 
-    public int getSub_id() {
-        return sub_id;
+    public int getSubId() {
+        return subId;
     }
 
-    public void setSub_id(int sub_id) {
-        this.sub_id = sub_id;
+    public void setSubId(int subId) {
+        this.subId = subId;
     }
 
-    public String getSub_fio() {
-        return sub_fio;
+    public String getSubFio() {
+        return subFio;
     }
 
-    public void setSub_fio(String sub_fio) {
-        this.sub_fio = sub_fio;
+    public void setSubFio(String subFio) {
+        this.subFio = subFio;
     }
 
-    public int getSub_city_id() {
-        return sub_city_id;
+    public int getSubCityId() {
+        return subCityId;
     }
 
-    public void setSub_city_id(int sub_city_id) {
-        this.sub_city_id = sub_city_id;
+    public void setSubCityId(int subCityId) {
+        this.subCityId = subCityId;
     }
 
-    public String getSub_tariff() {
-        return sub_tariff;
+    public String getSubTariff() {
+        return subTariff;
     }
 
-    public void setSub_tariff(String sub_tariff) {
-        this.sub_tariff = sub_tariff;
+    public void setSubTariff(String subTariff) {
+        this.subTariff = subTariff;
     }
 
-    public int getSub_price() {
-        return sub_price;
+    public int getSubPrice() {
+        return subPrice;
     }
 
-    public void setSub_price(int sub_price) {
-        this.sub_price = sub_price;
+    public void setSubPrice(int subPrice) {
+        this.subPrice = subPrice;
     }
 
     @Override
@@ -65,20 +65,20 @@ public class SubscribersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SubscribersEntity that = (SubscribersEntity) o;
-        return sub_id == that.sub_id;
+        return subId == that.subId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sub_id);
+        return Objects.hash(subId);
     }
 
     @Override
     public String toString() {
-        return sub_fio+ ": " +
-                "ID = " + sub_id +
-                ", ID города = " + sub_city_id +
-                ", Тариф = " + sub_tariff +
-                ", Цена тарифа = " + sub_price;
+        return subFio + ": " +
+                "ID = " + subId +
+                ", ID города = " + subCityId +
+                ", Тариф = " + subTariff +
+                ", Цена тарифа = " + subPrice;
     }
 }

@@ -2,12 +2,8 @@ package com.kurguzov.Services;
 
 import com.kurguzov.DAO.CitiesDAO;
 import com.kurguzov.Entities.CitiesEntity;
-import com.kurguzov.Entities.SubscribersEntity;
-import com.kurguzov.Utils.Util;
-import org.xml.sax.SAXException;
+import com.kurguzov.Utils.ConnectionDB;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,64 +11,59 @@ import java.util.List;
 public class CitiesService implements CitiesDAO {
 
     @Override
-    public void add(CitiesEntity city) throws SQLException,ClassNotFoundException, SAXException, IOException, ParserConfigurationException {
-        Connection connection = Util.getConnection();
+    public void add(CitiesEntity city) throws SQLException,ClassNotFoundException {
+        Connection connection = ConnectionDB.getConnection();
         Statement statement = connection.createStatement();
         String sql = "INSERT INTO CITIES(CITY_ID,CITY_NAME) VALUES" +
-                " ("+city.getCity_id()+",\'"+city.getCity_name()+"\')";
+                " ("+city.getCityId()+",\'"+city.getCityName()+"\')";
         statement.execute(sql);
-        connection.close();
     }
 
     @Override
-    public CitiesEntity getById(int id) throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
+    public CitiesEntity getById(int id) throws SQLException,ClassNotFoundException {
         CitiesEntity citiesEntity = new CitiesEntity();
         String sql = "SELECT * FROM CITIES WHERE CITY_ID = " + id;
-        Connection connection = Util.getConnection();
+        Connection connection = ConnectionDB.getConnection();
         Statement statement= connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()){
             if (resultSet.getInt("city_id") == id){
-                citiesEntity.setCity_id(resultSet.getInt("city_id"));
-                citiesEntity.setCity_name(resultSet.getString("city_name"));
+                citiesEntity.setCityId(resultSet.getInt("city_id"));
+                citiesEntity.setCityName(resultSet.getString("city_name"));
             }
         }
-        connection.close();
         return citiesEntity;
     }
 
     @Override
-    public void update(CitiesEntity city) throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
-        String sql = "UPDATE CITIES SET city_name=\'"+city.getCity_name()+"\' WHERE city_id=" + city.getCity_id();
-        Connection connection = Util.getConnection();
+    public void update(CitiesEntity city) throws SQLException,ClassNotFoundException {
+        String sql = "UPDATE CITIES SET city_name=\'"+city.getCityName()+"\' WHERE city_id=" + city.getCityId();
+        Connection connection = ConnectionDB.getConnection();
         Statement statement = connection.createStatement();
         statement.execute(sql);
-        connection.close();
     }
 
     @Override
-    public void delete(int id) throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
+    public void delete(int id) throws SQLException,ClassNotFoundException {
         String sql = "DELETE FROM CITIES WHERE city_id=" + id;
-        Connection connection = Util.getConnection();
+        Connection connection = ConnectionDB.getConnection();
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
-        connection.close();
     }
 
     @Override
-    public List<CitiesEntity> getAll() throws SQLException,ClassNotFoundException,SAXException,IOException,ParserConfigurationException {
+    public List<CitiesEntity> getAll() throws SQLException,ClassNotFoundException {
         String sql = "SELECT * FROM CITIES";
         List<CitiesEntity> citiesEntityList = new ArrayList<>();
-        Connection connection = Util.getConnection();
+        Connection connection = ConnectionDB.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()){
             CitiesEntity citiesEntity = new CitiesEntity();
-            citiesEntity.setCity_id(resultSet.getInt("city_id"));
-            citiesEntity.setCity_name(resultSet.getString("city_name"));
+            citiesEntity.setCityId(resultSet.getInt("city_id"));
+            citiesEntity.setCityName(resultSet.getString("city_name"));
             citiesEntityList.add(citiesEntity);
         }
-        connection.close();
         return citiesEntityList;
     }
 }

@@ -3,31 +3,31 @@ package com.kurguzov.Entities;
 import java.util.Objects;
 
 public class CitiesEntity {
-    private int city_id;
-    private String city_name;
+    private int cityId;
+    private String cityName;
 
     public CitiesEntity() {
     }
 
-    public CitiesEntity(int city_id, String city_name) {
-        this.city_id = city_id;
-        this.city_name = city_name;
+    public CitiesEntity(int cityId, String cityName) {
+        this.cityId = cityId;
+        this.cityName = cityName;
     }
 
-    public int getCity_id() {
-        return city_id;
+    public int getCityId() {
+        return cityId;
     }
 
-    public void setCity_id(int city_id) {
-        this.city_id = city_id;
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
     }
 
-    public String getCity_name() {
-        return city_name;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     @Override
@@ -35,18 +35,18 @@ public class CitiesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CitiesEntity citiesEntity = (CitiesEntity) o;
-        return city_id == citiesEntity.city_id;
+        return cityId == citiesEntity.cityId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(city_id);
+        return Objects.hash(cityId);
     }
 
     @Override
     public String toString() {
-        return city_name +
-                "(ID = " + city_id +
+        return cityName +
+                "(ID = " + cityId +
                 ") ";
     }
 }

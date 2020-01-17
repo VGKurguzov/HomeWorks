@@ -4,6 +4,8 @@ import com.kurguzov.Entities.CitiesEntity;
 import com.kurguzov.Entities.SubscribersEntity;
 import com.kurguzov.Services.CitiesService;
 import com.kurguzov.Services.SubscribersService;
+import com.kurguzov.Utils.ConnectionDB;
+import com.kurguzov.Utils.XMLParser;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -12,6 +14,11 @@ import java.sql.SQLException;
 public class Main {
 
     public static void main(String[] args) {
+        try{
+            XMLParser.init();
+        }catch (SAXException | IOException | ParserConfigurationException e){
+            e.printStackTrace();
+        }
         CitiesService citiesService = new CitiesService();
         SubscribersService subscribersService = new SubscribersService();
         try{
@@ -29,8 +36,14 @@ public class Main {
             System.out.println("Абонент с ID = 14: " + subscribersService.getById(14));
             subscribersService.delete(22);
             citiesService.delete(8);
-        }catch (ClassNotFoundException|SQLException| SAXException| IOException| ParserConfigurationException e){
+        }catch (ClassNotFoundException|SQLException e){
             e.printStackTrace();
+        }finally {
+            try {
+                ConnectionDB.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
