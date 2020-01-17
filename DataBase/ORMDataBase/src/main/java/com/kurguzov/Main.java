@@ -1,5 +1,6 @@
 package com.kurguzov;
 
+import com.kurguzov.hibernate.CitiesEntity;
 import com.kurguzov.hibernate.SubscribersEntity;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -11,6 +12,10 @@ public class Main {
     public static void main(String[] args) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
+        CitiesEntity omutminsk = new CitiesEntity(8,"Омутминск");
+        session.save(omutminsk);
+        SubscribersEntity newHuman = new SubscribersEntity(22,"Коробкин Арсений Васильевич",omutminsk,"Огромный",1000);
+        session.save(newHuman);
 
         Query<SubscribersEntity> query = session.createQuery("from SubscribersEntity c");
         List<SubscribersEntity> cities = query.getResultList();
@@ -29,6 +34,9 @@ public class Main {
         for (SubscribersEntity city : cities) {
             System.out.println(city.getSubFio()+ " платит по " + city.getSubPrice() + " рублей в месяц");
         }
+
+        session.delete(newHuman);
+        session.delete(omutminsk);
         session.close();
     }
 }

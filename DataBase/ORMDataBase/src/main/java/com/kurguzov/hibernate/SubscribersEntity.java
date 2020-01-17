@@ -11,6 +11,17 @@ public class SubscribersEntity {
     private String subTariff;
     private int subPrice;
 
+    public SubscribersEntity(int subId, String subFio, CitiesEntity subCityId, String subTariff, int subPrice) {
+        this.subId = subId;
+        this.subFio = subFio;
+        this.subCityId = subCityId;
+        this.subTariff = subTariff;
+        this.subPrice = subPrice;
+    }
+
+    public SubscribersEntity() {
+    }
+
     @Id
     @Column(name = "SUB_ID")
     public int getSubId() {

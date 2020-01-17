@@ -9,6 +9,15 @@ public class CitiesEntity implements Serializable {
     private int cityId;
     private String cityName;
 
+    public CitiesEntity(int cityId, String cityName) {
+        this.cityId = cityId;
+        this.cityName = cityName;
+    }
+
+    public CitiesEntity() {
+    }
+
+
     @Id
     @Column(name = "CITY_ID")
     public int getCityId() {
